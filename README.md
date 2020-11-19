@@ -1,10 +1,10 @@
 # Api Examples for WebTech 2020
 
-This file containes some examples of calling and implementing an api in PHP.
+This file contains some examples of calling and implementing an api in PHP.
 
-## Implemnting a PHP API and calling from JavaScript
+## Implementing a PHP API and calling from JavaScript
 
-The files `index.php`, `/js/callApi.js` and `api.php` show how to impplement and cal an api from a php file:
+The files `index.php`, `/js/callApi.js` and `api.php` show how to implement and cal an api from a php file:
 
 ### index.php
 

@@ -3,5 +3,9 @@
         "curlopt",
         "curlopt returntransfer",
         "returntransfer"
+    ],
+    "cSpell.words": [
+        "duckduckgo",
+        "stackblitz"
     ]
 }
