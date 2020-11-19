@@ -11,18 +11,21 @@
       <button type="submit">Go</button>
     </form>
 <?php
-// set search term
- $search = $_GET['search'] ?? "no term yet";
- 
- define('DUCK_URL',"https://api.duckduckgo.com");
- $hasTerm = isset($_GET['search']);
- $image = null;
- $resultText = null;
- $result= null;
- $abstract = null;
- $related = null;
- $searchResults = null;
- if($hasTerm) {
+  // define a constant for the api URL
+  define('DUCK_URL',"https://api.duckduckgo.com");
+  // set search term
+  $search = $_GET['search'] ?? "no term yet";
+  $hasTerm = isset($_GET['search']);
+  // define the variables that we will substitute in the html with the stuff we get
+  // from the API
+  $image = null;
+  $resultText = null;
+  $result= null;
+  $abstract = null;
+  $related = null;
+  $searchResults = null;
+  // if someone has typed the search term; then go ahead and do the search
+  if($hasTerm) {
      $queryParams = ARRAY('format'=>'json', 'q'=>$search);
      $url = DUCK_URL . "?" . http_build_query($queryParams);
      $result = file_get_contents($url);
@@ -31,26 +34,31 @@
      $abstract = $searchResults['Abstract'];
      $related = $searchResults['RelatedTopics'];
  }
-echo <<<__RESULTS
+ // output the search results
+  echo <<<__RESULTS
     <h1 id="topic">$search</h1>
     <img id="image" src="$image" alt="$search" />
     <p id="abstract">$abstract</p>
     <p></p>
     __RESULTS;
-if($related) {
-echo <<<__RELATE_HEADER
-<h2>Related</h2>
-    <ul id="related">
-__RELATE_HEADER;
+  // output related topics area if it exists
+    if($related) {
+  echo <<<__RELATE_HEADER
+  <h2>Related</h2>
+      <ul id="related">
+  __RELATE_HEADER;
+  // loop through each related topic, adding a list element to the html
     foreach ($related as $key => $value) {
         $result=$value['Result'] ?? null;
         echo <<<_R_ITEM
         <li>$result</li>
 _R_ITEM;        
     }    
+// close the list
+echo '</ul>';
 }
-    echo '</ul>';
-    echo var_dump($searchResults);
+// dump the search results; or dump null if no search has been done to the page
+echo var_dump($searchResults);
 ?>
   </body>
   </html>
