@@ -27,9 +27,13 @@
   // if someone has typed the search term; then go ahead and do the search
   if($hasTerm) {
      $queryParams = ARRAY('format'=>'json', 'q'=>$search);
+     // build the search query parameters, encoding spaces and special characters
      $url = DUCK_URL . "?" . http_build_query($queryParams);
+     // call the api with a get
      $result = file_get_contents($url);
+     // convert the JSON to an associative array.
      $searchResults = json_decode($result,true);
+     // set the main results for the page
      $image = 'https://duckduckgo.com'. $searchResults['Image'];
      $abstract = $searchResults['Abstract'];
      $related = $searchResults['RelatedTopics'];
